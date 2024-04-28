@@ -35,19 +35,19 @@ async function run() {
             res.send(result);
         })
 
-        
+
         app.get('/tourism', async (req, res) => {
             const cursor = tourismCollection.find();
             const result = await cursor.toArray();
             res.send(result);
         })
 
-        // app.get('/mylist/:id', async(req, res) => {
-        //     const id = req.params.id;
-        //     const query = {_id: new ObjectId(id)}
-        //     const result = await coffeeCollection.findOne(query);
-        //     res.send(result);
-        // })
+        app.get('/mylist/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await tourismCollection.findOne(query);
+            res.send(result);
+        })
 
         app.delete('/mylist/:id', async (req, res) => {
             const id = req.params.id;
@@ -55,6 +55,35 @@ async function run() {
             const result = await tourismCollection.deleteOne(query);
             res.send(result);
         })
+
+
+        app.put('/mylist/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updatedTourism = req.body;
+
+            const tourism = {
+                $set: {
+                    photo: updatedTourism.photo,
+                    photo: updatedTourism.value,
+                    tourismName: updatedTourism.tourismName,
+                    countryName: updatedTourism.countryName,
+                    location: updatedTourism.location,
+                    shortDescription: updatedTourism.shortDescription,
+                    averageCost: updatedTourism.averageCost,
+                    seasonality: updatedTourism.seasonality,
+                    travelTime: updatedTourism.travelTime,
+                    totalVisitorsPerYear: updatedTourism.totalVisitorsPerYear,
+                    email: updatedTourism.email,
+                    name: updatedTourism.name,
+                }
+            }
+
+            const result = await tourismCollection.updateOne(filter, tourism, options);
+            res.send(result);
+        })
+
 
 
         // Send a ping to confirm a successful connection
