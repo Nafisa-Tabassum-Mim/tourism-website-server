@@ -71,12 +71,7 @@ async function run() {
                     countryName: updatedTourism.countryName,
                     location: updatedTourism.location,
                     shortDescription: updatedTourism.shortDescription,
-                    averageCost: updatedTourism.averageCost,
-                    seasonality: updatedTourism.seasonality,
-                    travelTime: updatedTourism.travelTime,
-                    totalVisitorsPerYear: updatedTourism.totalVisitorsPerYear,
-                    email: updatedTourism.email,
-                    name: updatedTourism.name,
+               
                 }
             }
 
